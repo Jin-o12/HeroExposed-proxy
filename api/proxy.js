@@ -13,7 +13,7 @@ export default async function handler(req, res) {
   if (req.method === "OPTIONS") return res.status(200).end();
 
   const subPath = Array.isArray(req.query.path) ? req.query.path.join("/") : (req.query.path || "");
-  const targetUrl = `https://mlapi.run/e55afb4c-afa7-4b64-b80f-937f9000573e/v1/${subPath}`;
+  const targetUrl = `https://generativelanguage.googleapis.com/v1beta/openai/${subPath}`;
 
   console.log("Proxying to:", targetUrl);
   console.log("Method:", req.method);
@@ -25,7 +25,7 @@ export default async function handler(req, res) {
       headers: {
         "Content-Type": "application/json",
         // ← 유니티에서 오는 Authorization 헤더 무시하고 서버 키로 강제 덮어쓰기
-        "Authorization": `Bearer ${process.env.HELPY_API_KEY}`,
+        "Authorization": `Bearer ${process.env.GEMINI_API_KEY}`,
       },
       body: req.method !== "GET" && req.method !== "DELETE"
         ? JSON.stringify(req.body)
